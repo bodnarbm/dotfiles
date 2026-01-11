@@ -1,0 +1,7 @@
+[user]
+	name = Brandon Bodnar
+	email = 121035+bodnarbm@users.noreply.github.com
+[init]
+	defaultbranch = main
+[include]
+	path = ~/.gitconfig.local

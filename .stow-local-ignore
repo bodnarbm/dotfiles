@@ -1,0 +1,6 @@
+\.git
+\.gitignore
+README\.md
+bootstrap\.sh
+LICENSE
+\.stow-local-ignore
