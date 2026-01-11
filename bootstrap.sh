@@ -10,9 +10,12 @@ NC='\033[0m'
 info() { printf "${GREEN}[INFO]${NC} %s\n" "$1"; }
 error() { printf "${RED}[ERROR]${NC} %s\n" "$1"; exit 1; }
 
-check_stow() {
-    if ! command -v stow >/dev/null 2>&1; then
-        error "GNU Stow is required but not installed. Install it with: brew install stow"
+install_brew_packages() {
+    if command -v brew >/dev/null 2>&1; then
+        info "Installing brew packages..."
+        brew bundle --file="$DOTFILES_DIR/brew/Brewfile"
+    else
+        error "Homebrew is required but not installed. Install it from https://brew.sh"
     fi
 }
 
@@ -32,7 +35,7 @@ main() {
     fi
 
     info "Setting up dotfiles..."
-    check_stow
+    install_brew_packages
     run_stow
 }
 
