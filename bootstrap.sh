@@ -22,11 +22,20 @@ install_brew_packages() {
 run_stow() {
     info "Running stow..."
     cd "$DOTFILES_DIR"
-    if ! stow -v -t "$HOME" home 2>&1; then
+    if ! stow -v --no-folding -t "$HOME" home 2>&1; then
         echo ""
         error "Stow failed. If there are conflicts, either remove/backup the existing files or use: stow --adopt -t ~ home"
     fi
     info "Symlinks created successfully"
+}
+
+run_post_install() {
+    for script in "$DOTFILES_DIR/post-install"/*.sh; do
+        [ -f "$script" ] || continue
+        info "Running post-install: $(basename "$script")..."
+        # shellcheck source=/dev/null
+        . "$script"
+    done
 }
 
 main() {
@@ -37,6 +46,7 @@ main() {
     info "Setting up dotfiles..."
     install_brew_packages
     run_stow
+    run_post_install
 }
 
 main "$@"
