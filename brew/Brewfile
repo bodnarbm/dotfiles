@@ -11,7 +11,6 @@ brew "mise"
 
 cask "ghostty"
 cask "1password-cli"
-cask "betterdisplay"
 cask "claude"
 cask "docker-desktop"
 cask "figma"
