@@ -6,11 +6,12 @@ ensure_path() { [[ ":$PATH:" != *":$1:"* ]] && export PATH="$1:$PATH"; }
 ensure_path "$HOME/.local/bin"
 
 # Homebrew completions
+[[ -d "$HOME/.zfunc" ]] && FPATH="$HOME/.zfunc:${FPATH}"
 if type brew &>/dev/null; then
   FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
-  autoload -Uz compinit
-  compinit
 fi
+autoload -Uz compinit
+compinit
 
 # Google Cloud SDK completions
 if command -v gcloud &>/dev/null; then
